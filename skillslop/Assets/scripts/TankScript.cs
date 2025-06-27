@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+public class Bullet : MonoBehaviour
+{
+    public Vector3 Direction { get; set; }
+
+    void Update()
+    {
+        // Move the bullet in the specified direction
+        transform.position += Direction * Time.deltaTime * 10f;
+    }
+}
+
 public class Tank : MonoBehaviour
 {
-
-    //[SerializeField] Bullet bullet;
+    [SerializeField] GameObject bulletPrefab; // Renamed 'bullet' to 'bulletPrefab' for clarity
     Vector3 velocity;
     Vector3 direction;
     float speed;
     float horizontal = 0;
     float vertical = 0;
     Vector2 maxScreen, minScreen;
-
 
     void Start()
     {
@@ -44,10 +53,12 @@ public class Tank : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           // Bullet CopyOfBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-           // CopyOfBullet.Direction = direction;
+            GameObject copyOfBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            if (copyOfBullet.TryGetComponent(out Bullet bulletComponent)) // Use TryGetComponent to avoid allocation
+            {
+                bulletComponent.Direction = direction; // Set direction if the component exists
+            }
         }
-
     }
 
     void BoxingTank()
