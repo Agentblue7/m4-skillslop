@@ -6,6 +6,7 @@ public class bullet : MonoBehaviour
 {
     Vector3 direction = Vector3.right;
     Vector3 velocity;
+    RaycastHit2D hit;
     float speed = 15.0f;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,12 @@ public class bullet : MonoBehaviour
     {
         velocity = direction * speed * Time.deltaTime;
         transform.position += velocity;
+
+        if (hit.collider != null)
+        {
+            Destroy(hit.collider.gameObject);
+            Destroy(gameObject);
+        }
     }
     public Vector3 Direction
     {
