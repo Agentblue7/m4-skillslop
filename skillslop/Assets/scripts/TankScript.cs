@@ -3,16 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
-{
-    public Vector3 Direction { get; set; }
-
-    void Update()
-    {
-        // Move the bullet in the specified direction
-        transform.position += Direction * Time.deltaTime * 10f;
-    }
-}
 
 public class Tank : MonoBehaviour
 {
@@ -70,4 +60,15 @@ public class Tank : MonoBehaviour
         if (pos.y < minScreen.y) { pos.y = maxScreen.y; }
         transform.position = pos;
     }
+    public class Bullet : MonoBehaviour
+    {
+        public Vector3 Direction { get; set; }
+
+        void Update()
+        {
+            // Move the bullet in the specified direction
+            transform.position += Direction * Time.deltaTime * 10f;
+        }
+    }
+
 }
